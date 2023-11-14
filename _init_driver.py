@@ -27,13 +27,10 @@ def coop(driver: webdriver):
         # flyer_btn_xpath = '//*[@id="reactMicroApp"]/div[2]/div[1]/div/div/div[2]/div[2]/button[1]'
         # driver.find_element(By.XPATH, flyer_btn_xpath).click()
 
-        time.sleep(2)
-
 
 def hemkop(driver: webdriver):
     pdf_url = "https://hemkop.eo.se/hkp/4640.pdf"
     driver.get(pdf_url)
-    time.sleep(5)
 
 
 def ica(driver: webdriver):
@@ -43,7 +40,6 @@ def ica(driver: webdriver):
 
     for ica in the_icas:
         driver.get(ica)
-        time.sleep(2)
         # scroll_out(driver)
 
         # # Cookie handler button
@@ -64,8 +60,6 @@ def ica(driver: webdriver):
         pdf_btn_xpath = '//*[@id="toolbarContainer"]/div[3]/div/button[3]/div[1]'
         driver.find_element(By.XPATH, pdf_btn_xpath).click()
 
-        time.sleep(2)
-
 
 def lidl(driver: webdriver):
     lidl_weda_url = "https://www.lidl.se/s/sv-SE/butiker/soedertaelje/bergaholmsvaegen-7/"
@@ -81,7 +75,6 @@ def lidl(driver: webdriver):
     pdf_url = driver.find_element(By.XPATH, pdf_dl_xpath).get_attribute("href")
 
     driver.get(pdf_url)
-    time.sleep(20)
 
 
 def oob(driver: webdriver):
@@ -91,8 +84,6 @@ def oob(driver: webdriver):
     dl_btn_xpath = '//*[@id="modDownloadPdfBtn"]/div'
     driver.find_element(By.XPATH, dl_btn_xpath).click()
 
-    time.sleep(2)
-
 
 def rusta(driver: webdriver):
     rusta_url = "https://view.publitas.com/rusta-bladet"
@@ -100,8 +91,6 @@ def rusta(driver: webdriver):
 
     dl_pdf_xpath = '//*[@id="downloadAsPdf"]'
     driver.find_element(By.XPATH, dl_pdf_xpath).click()
-
-    time.sleep(2)
 
 
 def snabbgross(driver: webdriver):
@@ -114,16 +103,26 @@ def snabbgross(driver: webdriver):
     age_confirm_xpath = '//*[@id="agree"]'
     driver.find_element(By.XPATH, age_confirm_xpath).click()
 
-    try:
-        campaign_store_xpath = '//*[@id="currentCampaignRefresh"]/div/div[3]/div'
-    except:
-        print("Second campaign element seems not to exist")
-    else:
-        campaign_store_xpath = '//*[@id="currentCampaignRefresh"]/div/div[2]/div'
-    
-    driver.find_element(By.XPATH, campaign_store_xpath).click()
+    campaign_elements = [
+        '//*[@id="currentCampaignRefresh"]/div/div[0]/div/div/div[2]/a',
+        '//*[@id="currentCampaignRefresh"]/div/div[1]/div/div/div[2]/a',
+        '//*[@id="currentCampaignRefresh"]/div/div[2]/div/div/div[2]/a',
+        '//*[@id="currentCampaignRefresh"]/div/div[3]/div/div/div[2]/a',
+        '//*[@id="currentCampaignRefresh"]/div/div[4]/div/div/div[2]/a',
+        '//*[@id="currentCampaignRefresh"]/div/div[5]/div/div/div[2]/a'
+    ]
 
-    time.sleep(3)
+    for element in campaign_elements:
+        try:
+            driver.find_element(By.XPATH, element).click()
+        except:
+            print("This campaign element seems not to exist: {}",format(element))
+        
+
+def tempo(driver: webdriver):
+    pdf_url = "http://tempo.eo.se/hkp/Tempo.pdf"
+    driver.get(pdf_url)
+
 
 
 def willys(driver: webdriver):
@@ -132,8 +131,6 @@ def willys(driver: webdriver):
 
     pdf_dl_xpath = '//*[@id="modDownloadPdfBtn"]'
     driver.find_element(By.XPATH, pdf_dl_xpath).click()
-
-    time.sleep(5)
 
 
 def scroll_out(driver: webdriver):
